@@ -12,65 +12,85 @@ class BattleContainer extends React.Component {
 
   state = {player1: pokemon1, player2: pokemon2, playerMoves: []}
 
-  fetchMovesHelper = (url) => {
-    console.log(url);
+  componentDidMount(){
+    this.fetchPlayersHelper()
+  }
+
+  /*****************************************************************************
+    FETCH HELPER METHODS
+  *****************************************************************************/
+
+  fetchMovesPlayerOne = (player, url) => {
     fetch(url)
     .then(resp => resp.json())
-    .then(data => this.setState({playerMoves: [...this.state.playerMoves, data]}, this.destructureHelper()))
-  }
-
-  componentDidMount(){
-    this.fetchMovesHelper(this.state.player1["moves"][0]["move"]["url"])
-    this.fetchMovesHelper(this.state.player1["moves"][1]["move"]["url"])
-    this.fetchMovesHelper(this.state.player1["moves"][2]["move"]["url"])
-    this.fetchMovesHelper(this.state.player1["moves"][3]["move"]["url"])
-    this.fetchMovesHelper(this.state.player2["moves"][0]["move"]["url"])
-    this.fetchMovesHelper(this.state.player2["moves"][1]["move"]["url"])
-    this.fetchMovesHelper(this.state.player2["moves"][2]["move"]["url"])
-    this.fetchMovesHelper(this.state.player2["moves"][3]["move"]["url"])
-
-  }
-
-  destructureHelper = () => {
-
-    this.state.playerMoves.forEach(move => {
-      // console.log(move.name);
-      newObj = { ...newObj, name: move.name}
+    .then(data => {
+      let playerClone = { ...player, moves: [...this.state.player1.moves, data] }
+      this.deleteUselessKeysFromMoves(playerClone.moves)
+      playerClone.moves = this.removeOldMoveSlots(playerClone.moves);
+      this.setState({player1: playerClone})
     })
-
-    console.log(newObj);
   }
 
-  // iterateMoivesHelper = (poke) => {
-  //   let moves = []
-  //     poke["moves"].map(move => {
-  //      fetch(move["move"]["url"])
-  //      .then(r => r.json())
-  //      .then(data => {
-  //        moves = [...moves, data.damage_class]
-  //        // console.log(data.damage_class);
-  //      })
-  //        // this.setState({moves: eightMoves}, () => console.log(this.state.moves))
-  //   })
-  //   // debugger
-  //   return moves
-  // }
+  fetchMovesPlayerTwo = (player, url) => {
+    fetch(url)
+    .then(resp => resp.json())
+    .then(data => {
+      let playerClone = { ...player, moves: [...this.state.player2.moves, data] }
+      this.deleteUselessKeysFromMoves(playerClone.moves)
+      playerClone.moves = this.removeOldMoveSlots(playerClone.moves);
+      this.setState({player2: playerClone})
+    })
+  }
 
+  fetchPlayersHelper = () => {
+    this.fetchMovesPlayerOne(this.state.player1, this.state.player1["moves"][0]["move"]["url"])
+    this.fetchMovesPlayerOne(this.state.player1, this.state.player1["moves"][1]["move"]["url"])
+    this.fetchMovesPlayerOne(this.state.player1, this.state.player1["moves"][2]["move"]["url"])
+    this.fetchMovesPlayerOne(this.state.player1, this.state.player1["moves"][3]["move"]["url"])
+    this.fetchMovesPlayerTwo(this.state.player2, this.state.player2["moves"][0]["move"]["url"])
+    this.fetchMovesPlayerTwo(this.state.player2, this.state.player2["moves"][1]["move"]["url"])
+    this.fetchMovesPlayerTwo(this.state.player2, this.state.player2["moves"][2]["move"]["url"])
+    this.fetchMovesPlayerTwo(this.state.player2, this.state.player2["moves"][3]["move"]["url"])
+  }
 
-  // componentDidMount(){
-  //   this.fetchMovesHelper(this.state.player2["moves"][0]["move"]["url"])
-  //   this.fetchMovesHelper(this.state.player1["moves"][0]["move"]["url"])
-  // }
+  /*****************************************************************************
+    FORMATTING MOVES HELPER METHODS
+  *****************************************************************************/
 
+  deleteUselessKeysFromMoves = (playerMoves) => {
+
+    playerMoves.forEach(move => {
+      delete move.contest_combos;
+      delete move.effect_changes;
+      delete move.effect_chance;
+      delete move.priority;
+      delete move.stat_changes;
+      delete move.past_values;
+      delete move.contest_effect;
+      delete move.contest_type;
+      delete move.generation;
+      delete move.flavor_text_entries;
+      delete move.machines;
+      delete move.meta;
+      delete move.names;
+      delete move.super_contest_effect;
+      delete move.target;
+    })
+  }
+
+  removeOldMoveSlots = (playerMoves) => {
+    return playerMoves.filter(move => {
+      return !move.hasOwnProperty('move')
+    })
+  }
 
 
   render(){
-    // console.log(this.state.playerMoves);
+    console.log("PLAYER-1 MOVES", this.state.player1.moves);
+    console.log("PLAYER-2 MOVES", this.state.player2.moves);
     return (
       <div>
         <h1>Pokemon Cr151s</h1>
-
-
       </div>
     )
 
