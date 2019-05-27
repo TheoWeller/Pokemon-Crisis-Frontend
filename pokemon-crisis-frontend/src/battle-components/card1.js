@@ -51,7 +51,7 @@ class PokemonCard1 extends React.Component{
           </Card.Description>
         </Card.Content>
         <Card.Content extra>
-          <div className='ui two buttons'>
+          <div className='ui four buttons'>
             <Button basic color='green' onClick={() => this.props.useMove(this.props.moves[0], "player1")}>
                {this.props.moves[0] ? this.props.moves[0].name : null}
              </Button>

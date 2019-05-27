@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Icon, Image } from 'semantic-ui-react'
+import { Card, Icon, Image, Button } from 'semantic-ui-react'
 
 
 class PokemonCard2 extends React.Component{
@@ -17,7 +17,20 @@ class PokemonCard2 extends React.Component{
           </Card.Description>
         </Card.Content>
         <Card.Content extra>
-
+        <div className='ui two buttons'>
+          <Button basic color='green' onClick={() => this.props.useMove(this.props.moves[0], "player2")}>
+             {this.props.moves[0] ? this.props.moves[0].name : null}
+           </Button>
+          <Button basic color='green' onClick={() => this.props.useMove(this.props.moves[1], "player2")}>
+             {this.props.moves[1] ? this.props.moves[1].name : null}
+           </Button>
+          <Button basic color='green' onClick={() => this.props.useMove(this.props.moves[2], "player2")}>
+             {this.props.moves[2] ? this.props.moves[2].name : null}
+           </Button>
+          <Button basic color='green' onClick={() => this.props.useMove(this.props.moves[3], "player2")}>
+             {this.props.moves[3] ? this.props.moves[3].name : null}
+           </Button>
+         </div>
         </Card.Content>
       </Card>
     )
