@@ -16,6 +16,14 @@ class BattleContainer extends React.Component {
 
   componentDidMount(){
     this.fetchPlayersHelper()
+    this.calculateStat("player1")
+    this.calculateStat("player2")
+
+
+    // this.setState(this.calculateStat("hp", this.state.player1.stats[5].base_stat, "player1"))
+    // this.setState(this.calculateStat("atk", this.state.player1.stats[4].base_stat, "player1"))
+    //
+    // this.setState(this.calculateStat("def", this.state.player1.stats[3].base_stat, "player1"))
   }
 
   /*****************************************************************************
@@ -26,7 +34,8 @@ class BattleContainer extends React.Component {
     fetch(url)
     .then(resp => resp.json())
     .then(data => {
-      let playerClone = { ...player, moves: [...this.state.player1.moves, data] }
+      let playerClone = { ...this.state.player1, moves: [...this.state.player1.moves, data] }
+
       this.deleteUselessKeysFromMoves(playerClone.moves)
       playerClone.moves = this.removeOldMoveSlots(playerClone.moves);
       this.setState({player1: playerClone})
@@ -37,7 +46,7 @@ class BattleContainer extends React.Component {
     fetch(url)
     .then(resp => resp.json())
     .then(data => {
-      let playerClone = { ...player, moves: [...this.state.player2.moves, data] }
+      let playerClone = { ...this.state.player2, moves: [...this.state.player2.moves, data] }
       this.deleteUselessKeysFromMoves(playerClone.moves)
       playerClone.moves = this.removeOldMoveSlots(playerClone.moves);
       this.setState({player2: playerClone})
@@ -49,6 +58,10 @@ class BattleContainer extends React.Component {
     this.fetchMovesPlayerOne(this.state.player1, this.state.player1["moves"][1]["move"]["url"])
     this.fetchMovesPlayerOne(this.state.player1, this.state.player1["moves"][2]["move"]["url"])
     this.fetchMovesPlayerOne(this.state.player1, this.state.player1["moves"][3]["move"]["url"])
+
+
+
+
     this.fetchMovesPlayerTwo(this.state.player2, this.state.player2["moves"][0]["move"]["url"])
     this.fetchMovesPlayerTwo(this.state.player2, this.state.player2["moves"][1]["move"]["url"])
     this.fetchMovesPlayerTwo(this.state.player2, this.state.player2["moves"][2]["move"]["url"])
@@ -86,15 +99,107 @@ class BattleContainer extends React.Component {
     })
   }
 
+  /*******************************************************************************
+      CALCULATING INITIAL STATISTICS
+  *******************************************************************************/
+    calculateStat = (player) => {
+
+      const convertedHP = Math.floor( ( ( ( 2 * this.state[player].stats[5].base_stat + 0 + ( 0/4 ) ) * this.state.level) / 100 ) + this.state.level + 10 )
+
+      const convertedAtk = Math.floor( ( ( ( ( 2 * this.state[player].stats[4].base_stat + 0 + ( 0/4 ) ) * this.state.level) / 100 ) + 5 ) * 1 )
+
+      const convertedDef = Math.floor( ( ( ( ( 2 * this.state[player].stats[3].base_stat + 0 + ( 0/4 ) ) * this.state.level) / 100 ) + 5 ) * 1 )
+
+      const convertedSAtk = Math.floor( ( ( ( ( 2 * this.state[player].stats[2].base_stat + 0 + ( 0/4 ) ) * this.state.level) / 100 ) + 5 ) * 1 )
+
+      const convertedSDef = Math.floor( ( ( ( ( 2 * this.state[player].stats[1].base_stat + 0 + ( 0/4 ) ) * this.state.level) / 100 ) + 5 ) * 1 )
+
+      const convertedSpeed = Math.floor( ( ( ( ( 2 * this.state[player].stats[0].base_stat + 0 + ( 0/4 ) ) * this.state.level) / 100 ) + 5 ) * 1 )
+
+      const converted = {
+        hp: convertedHP,
+        atk: convertedAtk,
+        def: convertedDef,
+        sAtk: convertedSAtk,
+        sDef: convertedSDef,
+        speed: convertedSpeed
+      }
+
+      this.setState({ [player]: {...this.state[player], currentHP: convertedHP, convertedStats: converted } })
+    }
+
+  /*****************************************************************************
+    ATTACKING METHODS
+  *****************************************************************************/
+
+  useMove = (move, pkmn) => {
+
+    const enemy = pkmn == "player1" ? "player2" : "player1"
+    let attackingStat
+    let defendingStat
+    if (move.damage_class.name === "physical"){
+      attackingStat = this.state[pkmn].convertedStats.atk
+      defendingStat = this.state[enemy].convertedStats.def
+    } else if (move.damage_class.name === "special"){
+      attackingStat = this.state[pkmn].convertedStats.sAtk
+      defendingStat = this.state[enemy].convertedStats.sDef
+    }
+
+    const baseDamage = ( ( ( ( ( 2 * this.state.level ) / 5 ) + 2 ) * move.power * ( attackingStat/defendingStat ) ) / 50 ) + 2
+
+    this.setState({[enemy]: {...this.state[enemy], currentHP: this.state[enemy].currentHP - Math.floor(baseDamage)}})
+  }
+
+  /*****************************************************************************
+    ATTACKING HELPER METHODS
+  *****************************************************************************/
+
+  typeAdvantage = (attackingType, defendingType) => {
+    const chart = {
+      normal: {
+        rock: .5,
+        ghost: 0,
+        steel: .5
+      },
+      fire: {
+        fire: .5,
+        water: .5,
+        grass: 2,
+        ice: 2,
+        bug: 2,
+        rock: .5,
+        dragon: .5,
+        steel: 2
+      },
+      water: {
+        fire: 2,
+        water: .5,
+        grass: .5,
+        ground: 2,
+        rock: 2,
+        dragon: .5
+      },
+      electric: {
+        water: 2,
+        electric: .5,
+        grass: .5,
+        ground: 0,
+        flying: 2,
+        dragon: .5
+      }, grass : {
+        
+      }
+    }
+  }
 
   render(){
-    console.log("PLAYER-1 MOVES", this.state.player1.moves);
-    console.log("PLAYER-2 MOVES", this.state.player2.moves);
+    console.log("PLAYER-1", this.state.player1);
+
     return (
       <div>
         <h1>Pokemon Cr151s</h1>
-        <PokemonCard1 poke={pokemon1} moves={this.state.player1.moves} level={this.state.level}/>
-        <PokemonCard2 poke={pokemon2} moves={this.state.player2.moves} level={this.state.level}/>
+        <PokemonCard1 poke={pokemon1} moves={this.state.player1.moves} hp={this.state.player1.convertedStats? this.state.player1.convertedStats.hp : null} currentHP={this.state.player1.currentHP ? this.state.player1.currentHP : null} useMove={this.useMove} />
+        <PokemonCard2 poke={pokemon2} moves={this.state.player2.moves} hp={this.state.player2.convertedStats ? this.state.player2.convertedStats.hp : null} currentHP={this.state.player2.currentHP ? this.state.player2.currentHP : null} useMove={this.useMove} />
       </div>
     )
 

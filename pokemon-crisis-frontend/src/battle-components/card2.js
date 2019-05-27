@@ -13,7 +13,7 @@ class PokemonCard2 extends React.Component{
 
           </Card.Meta>
           <Card.Description>
-            {this.props.poke.stats[5].base_stat}/{this.props.poke.stats[5].base_stat} HP
+          {this.props.currentHP}/{this.props.hp} HP
           </Card.Description>
         </Card.Content>
         <Card.Content extra>
