@@ -5,21 +5,23 @@ import { Card, Icon, Image, Button } from 'semantic-ui-react'
 class PokemonCard extends React.Component{
   render() {
     return (
-      <Card  style={{background: "white"}}>
-        <Image src={this.props.pokemon.sprites.front_default} wrapped ui={false} onClick={() => this.props.catchPokemon(this.props.pokemon)}/>
-        <Card.Content>
-          <Card.Header>{this.props.pokemon.name}</Card.Header>
-          <Card.Meta>
+      <div className="column">
+        <Card  style={{background: "white"}}>
+          <Image src={this.props.pokemon.sprites.front_default} wrapped ui={false} onClick={() => this.props.catchPokemon(this.props.pokemon)}/>
+          <Card.Content>
+            <Card.Header>{this.props.pokemon.name}</Card.Header>
+            <Card.Meta>
 
-          </Card.Meta>
-          <Card.Description>
+            </Card.Meta>
+            <Card.Description>
 
-          </Card.Description>
-        </Card.Content>
-        <Card.Content extra>
+            </Card.Description>
+          </Card.Content>
+          <Card.Content extra>
 
-        </Card.Content>
-      </Card>
+          </Card.Content>
+        </Card>
+      </div>
     )
   }
 }

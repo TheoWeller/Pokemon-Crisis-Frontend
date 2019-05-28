@@ -8,6 +8,14 @@
   pointer-events: none;
 }
 
+.ui.form {
+  width: 100%;
+}
+
+.ui.grip {
+  width: 90%;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
