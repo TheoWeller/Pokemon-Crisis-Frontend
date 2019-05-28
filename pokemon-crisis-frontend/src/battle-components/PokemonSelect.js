@@ -10,9 +10,9 @@ class PokemonSelect extends React.Component {
 
   render() {
     return (
-      <span>
+      <div className="ui six column grid">
         {this.renderPokes()}
-      </span>
+      </div>
 
     )
   }

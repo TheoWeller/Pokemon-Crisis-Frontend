@@ -31,3 +31,210 @@
     transform: rotate(360deg);
   }
 }
+
+.btn {
+  background: transparent none;
+  font-weight: 300;
+  display: inline-block;
+  margin: 0 .25em 0 0;
+  /* line-height: 1em; */
+  border-radius: .3em;
+}
+
+.water {
+  color: #6987F3;
+  text-shadow: 1px 1px #000;
+  border-color: #6987F3;
+}
+
+.water:hover {
+  color: #fff;
+  background: #6987F3;
+}
+
+.normal {
+  color: #A5AB76;
+  text-shadow: 1px 1px #000;
+  border-color: #A5AB76;
+}
+
+.normal:hover {
+  color: #fff;
+  background: #A5AB76;
+}
+
+.grass {
+  color: #48D251;
+  text-shadow: 1px 1px #000;
+  border-color: #48D251;
+}
+
+.grass:hover {
+  color: #fff;
+  background: #48D251;
+}
+
+.poison {
+  color: #B1149F;
+  text-shadow: 1px 1px #000;
+  border-color: #B1149F;
+}
+
+.poison:hover {
+  color: #fff;
+  background: #B1149F;
+}
+
+.dark {
+  color: #745746;
+  text-shadow: 1px 1px #000;
+  border-color: #745746;
+}
+
+.dark:hover {
+  color: #fff;
+  background: #745746;
+}
+
+.fire {
+  color: #FF7800;
+  text-shadow: 1px 1px #000;
+  border-color: #FF7800;
+}
+
+.fire:hover {
+  color: #fff;
+  background: #FF7800;
+}
+
+.fighting {
+  color: #D20000;
+  text-shadow: 1px 1px #000;
+  border-color: #D20000;
+}
+
+.fighting:hover {
+  color: #fff;
+  background: #D20000;
+}
+
+.flying {
+  color: #B482F2;
+  text-shadow: 1px 1px #000;
+  border-color: #B482F2;
+}
+
+.flying:hover {
+  color: #fff;
+  background: #B482F2;
+}
+
+.electric {
+  color: #FCD400;
+  text-shadow: 1px 1px #000;
+  border-color: #FCD400;
+}
+
+.electric:hover {
+  color: #fff;
+  background: #FCD400;
+}
+
+.ground {
+  color: #E4C260;
+  text-shadow: 1px 1px #000;
+  border-color: #E4C260;
+}
+
+.ground:hover {
+  color: #fff;
+  background: #E4C260;
+}
+
+.psychic {
+  color: #FF3180;
+  text-shadow: 1px 1px #000;
+  border-color: #FF3180;
+}
+
+.psychic:hover {
+  color: #fff;
+  background: #FF3180;
+}
+
+.rock {
+  color: #BAA32B;
+  text-shadow: 1px 1px #000;
+  border-color: #BAA32B;
+}
+
+.rock:hover {
+  color: #fff;
+  background: #BAA32B;
+}
+
+.ice {
+  color: #83DBDA;
+  text-shadow: 1px 1px #000;
+  border-color: #83DBDA;
+}
+
+.ice:hover {
+  color: #fff;
+  background: #83DBDA;
+}
+
+.bug {
+  color: #9EBF0A;
+  text-shadow: 1px 1px #000;
+  border-color: #9EBF0A;
+}
+
+.bug:hover {
+  color: #fff;
+  background: #9EBF0A;
+}
+
+.dragon {
+  color: #8800FB;
+  text-shadow: 1px 1px #000;
+  border-color: #8800FB;
+}
+
+.dragon:hover {
+  color: #fff;
+  background: #8800FB;
+}
+
+.ghost {
+  color: #794E99;
+  text-shadow: 1px 1px #000;
+  border-color: #794E99;
+}
+
+.ghost:hover {
+  color: #fff;
+  background: #794E99;
+}
+
+.steel {
+  color: #B9B6D1;
+  text-shadow: 1px 1px #000;
+  border-color: #B9B6D1;
+}
+
+.steel:hover {
+  color: #fff;
+  background: #B9B6D1;
+}
+
+.dark {
+  color: #FE8FA8;
+  text-shadow: 1px 1px #000;
+  border-color: #FE8FA8;
+}
+
+.dark:hover {
+  color: #fff;
+  background: #FE8FA8;
+}
