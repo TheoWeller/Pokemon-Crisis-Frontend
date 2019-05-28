@@ -6,8 +6,10 @@ class PokemonCard extends React.Component{
   render() {
     return (
       <div className="column">
+
         <Card style={{background: "white"}}>
           <Image className="ui image" src={this.props.pokemon.sprites.front_default} wrapped ui={false} onClick={() => this.props.catchPokemon(this.props.pokemon)}/>
+
           <Card.Content>
             <Card.Header>{this.props.pokemon.name}</Card.Header>
             <Card.Meta>

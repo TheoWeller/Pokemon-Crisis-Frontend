@@ -371,14 +371,12 @@ class BattleContainer extends React.Component {
   }
 
   render(){
-    console.log("PLAYER-1", this.state.player1);
-    console.log("PLAYER-2", this.state.player2);
+    // console.log("PLAYER-1", this.state.player1);
+    // console.log("PLAYER-2", this.state.player2);
 
     return (
       <div>
         <h1>Pokemon Cr151s</h1>
-        <PokemonCard1 poke={pokemon1} moves={this.state.player1.moves} hp={this.state.player1.convertedStats? this.state.player1.convertedStats.hp : null} currentHP={this.state.player1.currentHP ? this.state.player1.currentHP : null} useMove={this.useMove} />
-        <PokemonCard2 poke={pokemon2} moves={this.state.player2.moves} hp={this.state.player2.convertedStats ? this.state.player2.convertedStats.hp : null} currentHP={this.state.player2.currentHP ? this.state.player2.currentHP : null} useMove={this.useMove} />
       </div>
     )
 
@@ -387,5 +385,7 @@ class BattleContainer extends React.Component {
 }
 export default BattleContainer;
 
+// <PokemonCard1 poke={pokemon1} moves={this.state.player1.moves} hp={this.state.player1.convertedStats? this.state.player1.convertedStats.hp : null} currentHP={this.state.player1.currentHP ? this.state.player1.currentHP : null} useMove={this.useMove} />
+// <PokemonCard2 poke={pokemon2} moves={this.state.player2.moves} hp={this.state.player2.convertedStats ? this.state.player2.convertedStats.hp : null} currentHP={this.state.player2.currentHP ? this.state.player2.currentHP : null} useMove={this.useMove} />
 
 // {this.props.pokemons[0] ? this.props.pokemons[0].name : "waiting..."}
