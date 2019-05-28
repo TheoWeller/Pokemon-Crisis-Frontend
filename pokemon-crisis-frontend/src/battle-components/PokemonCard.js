@@ -5,10 +5,10 @@ import { Card, Icon, Image, Button } from 'semantic-ui-react'
 class PokemonCard extends React.Component{
   render() {
     return (
-      <Card style={{background: "red"}}>
-        <Image src={this.props.poke.sprites.front_default} wrapped ui={false} />
+      <Card  style={{background: "white"}}>
+        <Image src={this.props.pokemon.sprites.front_default} wrapped ui={false} onClick={() => this.props.catchPokemon(this.props.pokemon)}/>
         <Card.Content>
-          <Card.Header>{this.props.poke.name}</Card.Header>
+          <Card.Header>{this.props.pokemon.name}</Card.Header>
           <Card.Meta>
 
           </Card.Meta>
@@ -17,7 +17,7 @@ class PokemonCard extends React.Component{
           </Card.Description>
         </Card.Content>
         <Card.Content extra>
-        
+
         </Card.Content>
       </Card>
     )

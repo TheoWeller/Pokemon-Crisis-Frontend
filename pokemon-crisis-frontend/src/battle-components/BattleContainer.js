@@ -159,14 +159,17 @@ class BattleContainer extends React.Component {
     const criticalHit = (_.random(1, 24) === 24 ? 1.5 : 1 )
     const random = _.random(217, 255) / 255
 
+    console.log(`${_.capitalize(this.state[pkmn].name)} used ${move.name}!`)
+
     // TYPES EFFECTIVENESS MESSAGES
     // TODO: WE SHOULD DISPLAY THESE ON SCREEN SOMEHOW
+
     if (typeMultipler === 0.5){
       console.log("It was not very effective")
     } else if (typeMultipler === 2) {
       console.log("It was super effective!")
     } else if (typeMultipler === 0) {
-      console.log(`${this.state[enemy].name} was unaffected by ${move.name}`)
+      console.log(`${_.capitalize(this.state[enemy].name)} was unaffected by ${move.name}`)
     } else if (typeMultipler === 0.25) {
       console.log("It was super not very effective!!!")
     } else if (typeMultipler === 4) {
