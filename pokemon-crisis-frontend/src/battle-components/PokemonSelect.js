@@ -5,7 +5,7 @@ import PokemonCard from './PokemonCard'
 class PokemonSelect extends React.Component {
 
   renderPokes = () => {
-    this.props.pokemons.map(pokemon => <PokemonCard pokemon={pokemon}/>)
+    return this.props.pokemons.map(pokemon => <PokemonCard catchPokemon={this.props.catchPokemon} pokemon={pokemon}/>)
   }
 
   render() {
