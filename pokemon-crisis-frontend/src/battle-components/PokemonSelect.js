@@ -16,6 +16,7 @@ class PokemonSelect extends React.Component {
   render() {
     return (
       <div className="ui six column grid">
+
         {this.contiionallyRenderAllPokes()}
       </div>
 
