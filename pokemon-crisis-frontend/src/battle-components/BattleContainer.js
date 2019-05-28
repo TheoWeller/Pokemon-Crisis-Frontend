@@ -2,6 +2,7 @@ import React from 'react';
 import semantic from 'semantic-ui-react';
 import PokemonCard1 from './card1'
 import PokemonCard2 from './card2'
+import _ from 'lodash'
 
 
 let pokemon1 = {"name":"tentacool","id":72,"sprites":{"back_default":"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/72.png","back_female":null,"back_shiny":"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/shiny/72.png","back_shiny_female":null,"front_default":"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/72.png","front_female":null,"front_shiny":"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/72.png","front_shiny_female":null},"types":[{"slot":2,"type":{"name":"poison","url":"https://pokeapi.co/api/v2/type/4/"}},{"slot":1,"type":{"name":"water","url":"https://pokeapi.co/api/v2/type/11/"}}],"base_xp":67,"abilities":[{"ability":{"name":"rain-dish","url":"https://pokeapi.co/api/v2/ability/44/"},"is_hidden":true,"slot":3},{"ability":{"name":"liquid-ooze","url":"https://pokeapi.co/api/v2/ability/64/"},"is_hidden":false,"slot":2},{"ability":{"name":"clear-body","url":"https://pokeapi.co/api/v2/ability/29/"},"is_hidden":false,"slot":1}],"moves":[{"move":{"name":"bubble-beam","url":"https://pokeapi.co/api/v2/move/61/"},"level_learned":25},{"move":{"name":"cut","url":"https://pokeapi.co/api/v2/move/15/"},"level_learned":0},{"move":{"name":"mega-drain","url":"https://pokeapi.co/api/v2/move/72/"},"level_learned":0},{"move":{"name":"poison-jab","url":"https://pokeapi.co/api/v2/move/398/"},"level_learned":0}],"stats":[{"base_stat":70,"effort":0,"stat":{"name":"speed","url":"https://pokeapi.co/api/v2/stat/6/"}},{"base_stat":100,"effort":1,"stat":{"name":"special-defense","url":"https://pokeapi.co/api/v2/stat/5/"}},{"base_stat":50,"effort":0,"stat":{"name":"special-attack","url":"https://pokeapi.co/api/v2/stat/4/"}},{"base_stat":35,"effort":0,"stat":{"name":"defense","url":"https://pokeapi.co/api/v2/stat/3/"}},{"base_stat":40,"effort":0,"stat":{"name":"attack","url":"https://pokeapi.co/api/v2/stat/2/"}},{"base_stat":40,"effort":0,"stat":{"name":"hp","url":"https://pokeapi.co/api/v2/stat/1/"}}]}
@@ -19,13 +20,9 @@ class BattleContainer extends React.Component {
     this.fetchPlayersHelper()
     this.calculateStat("player1")
     this.calculateStat("player2")
-
-
-    // this.setState(this.calculateStat("hp", this.state.player1.stats[5].base_stat, "player1"))
-    // this.setState(this.calculateStat("atk", this.state.player1.stats[4].base_stat, "player1"))
-    //
-    // this.setState(this.calculateStat("def", this.state.player1.stats[3].base_stat, "player1"))
   }
+
+
 
   /*****************************************************************************
     FETCH HELPER METHODS
@@ -107,15 +104,15 @@ class BattleContainer extends React.Component {
 
       const convertedHP = Math.floor( ( ( ( 2 * this.state[player].stats[5].base_stat + 0 + ( 0/4 ) ) * this.state.level) / 100 ) + this.state.level + 10 )
 
-      const convertedAtk = Math.floor( ( ( ( ( 2 * this.state[player].stats[4].base_stat + 0 + ( 0/4 ) ) * this.state.level) / 100 ) + 5 ) * 1 )
+      const convertedAtk = this.convertedStatNotHP(player, 4)
 
-      const convertedDef = Math.floor( ( ( ( ( 2 * this.state[player].stats[3].base_stat + 0 + ( 0/4 ) ) * this.state.level) / 100 ) + 5 ) * 1 )
+      const convertedDef = this.convertedStatNotHP(player, 3)
 
-      const convertedSAtk = Math.floor( ( ( ( ( 2 * this.state[player].stats[2].base_stat + 0 + ( 0/4 ) ) * this.state.level) / 100 ) + 5 ) * 1 )
+      const convertedSAtk = this.convertedStatNotHP(player, 2)
 
-      const convertedSDef = Math.floor( ( ( ( ( 2 * this.state[player].stats[1].base_stat + 0 + ( 0/4 ) ) * this.state.level) / 100 ) + 5 ) * 1 )
+      const convertedSDef = this.convertedStatNotHP(player, 1)
 
-      const convertedSpeed = Math.floor( ( ( ( ( 2 * this.state[player].stats[0].base_stat + 0 + ( 0/4 ) ) * this.state.level) / 100 ) + 5 ) * 1 )
+      const convertedSpeed = this.convertedStatNotHP(player, 0)
 
       const converted = {
         hp: convertedHP,
@@ -126,7 +123,12 @@ class BattleContainer extends React.Component {
         speed: convertedSpeed
       }
 
+
       this.setState({ [player]: {...this.state[player], currentHP: convertedHP, convertedStats: converted } })
+    }
+
+    convertedStatNotHP = (player, index) => {
+      return Math.floor( ( ( ( ( 2 * this.state[player].stats[index].base_stat + 0 + ( 0/4 ) ) * this.state.level) / 100 ) + 5 ) * 1 )
     }
 
   /*****************************************************************************
@@ -135,7 +137,7 @@ class BattleContainer extends React.Component {
 
   useMove = (move, pkmn) => {
 
-    const enemy = pkmn == "player1" ? "player2" : "player1"
+    const enemy = pkmn === "player1" ? "player2" : "player1"
     let attackingStat
     let defendingStat
     if (move.damage_class.name === "physical"){
@@ -148,7 +150,14 @@ class BattleContainer extends React.Component {
 
     let baseDamage = ( ( ( ( ( 2 * this.state.level ) / 5 ) + 2 ) * move.power * ( attackingStat/defendingStat ) ) / 50 ) + 2
 
+
+    /*****************
+    DAMAGE MODIFIERS
+    *****************/
     const typeMultipler = this.typeAdvantage(move.type.name, this.state[enemy].types)
+    const stab = this.calcSTAB(move.type.name, this.state[pkmn].types)
+    const criticalHit = (_.random(1, 24) === 24 ? 1.5 : 1 )
+    const random = _.random(217, 255) / 255
 
     // TYPES EFFECTIVENESS MESSAGES
     // TODO: WE SHOULD DISPLAY THESE ON SCREEN SOMEHOW
@@ -164,9 +173,16 @@ class BattleContainer extends React.Component {
       console.log("That was super duper effective!!!")
     }
 
-    baseDamage = baseDamage * typeMultipler
+     if (criticalHit === 1.5) {
+       console.log("Critical Hit!")
+     }
 
-    this.setState({[enemy]: {...this.state[enemy], currentHP: this.state[enemy].currentHP - Math.floor(baseDamage)}})
+    baseDamage = baseDamage * typeMultipler * stab * criticalHit * random
+
+    let damageDifference = (Math.floor(baseDamage) > this.state[enemy].currentHP) ? 0 : this.state[enemy].currentHP - Math.floor(baseDamage)
+
+
+    this.setState( { [enemy]: { ...this.state[enemy], currentHP: damageDifference } } )
   }
 
   /*****************************************************************************
@@ -337,6 +353,16 @@ class BattleContainer extends React.Component {
     }  else {
       const firstType = chart[attackingType][defendingType[0].type.name] ? chart[attackingType][defendingType[0].type.name] : 1
       const secondType = chart[attackingType][defendingType[1].type.name] ? chart[attackingType][defendingType[1].type.name] : 1
+      return firstType * secondType
+    }
+  }
+
+  calcSTAB = (attackingType, attackingPokemon) => {
+    if (attackingPokemon.length === 1){
+      return attackingPokemon[0].type.name === attackingType ? 1.5 : 1
+    } else {
+      const firstType = attackingPokemon[0].type.name === attackingType ? 1.5 : 1
+      const secondType = attackingPokemon[1].type.name === attackingType ? 1.5 : 1
       return firstType * secondType
     }
   }
