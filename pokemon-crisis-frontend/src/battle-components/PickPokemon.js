@@ -37,6 +37,8 @@ class PickPokemon extends React.Component {
         return {"borderStyle": "solid", "borderColor": "black", "borderWidth": ".2em"}
       }
     }
+
+    
     // <Card.Description>
     //   {`Moves: ${this.props.selectedPokemen.moveNames}`}
     // </Card.Description>

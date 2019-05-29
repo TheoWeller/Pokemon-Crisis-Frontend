@@ -15,8 +15,15 @@ class App extends React.Component {
   state = { pokemons: [], player1: {}, player2: {}, battleReady: false, selectedPokemen: {} , turn: ""}
 
   componentDidMount(){
+    this.fetchLeaderboard()
     this.fetchAllPokemon()
     this.setState({turn: _.sample(["player1", "player2"])})
+  }
+
+  fetchLeaderboard = () => {
+    fetch('http://localhost:3000/api/v1/trainers')
+    .then(resp => resp.json())
+    .then(data => this.setState({leaderBoard: data}))
   }
 
   fetchAllPokemon = () => {
@@ -96,7 +103,7 @@ class App extends React.Component {
 
   consitionallyRenderPickPokes = () => {
     if(this.state.player1.battlePoke && this.state.player2.battlePoke) {
-      return <BattleContainer player1={this.state.player1} player2={this.state.player2} turn={this.state.turn} turnChange={this.turnChange} rematch={this.rematch}/>
+      return <BattleContainer handleStats={this.handleStats} player1={this.state.player1} player2={this.state.player2} turn={this.state.turn} turnChange={this.turnChange} rematch={this.rematch}/>
     } else {
       return(
         <div>
@@ -133,7 +140,22 @@ class App extends React.Component {
 
   randomBackground = () => {
   return _.sample([""+b1+"", ""+b2+"", ""+b3+""])
+  }
 
+  handleStats = (results) => {
+    console.log("Winner", results.winner);
+    console.log("Loser", results.loser);
+    fetch('http://localhost:3000/api/v1/trainers/:id',{
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(results)
+    })
+  }
+
+  renderLeaderBoard = () => {
+    return this.state.leaderBoard.map(player => <div>{player.name}|| Wins: {player.win}</div>)
   }
 
   render(){
@@ -146,9 +168,8 @@ class App extends React.Component {
           {this.renderPickPokemon()}
           {this.renderSignIn()}
           {this.consitionallyRenderPickPokes()}
-
+          { this.state.leaderBoard? this.renderLeaderBoard() : null }
         </header>
-
       </div>
     );
 

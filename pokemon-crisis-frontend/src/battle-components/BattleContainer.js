@@ -25,6 +25,11 @@ class BattleContainer extends React.Component {
 
   rematch = () => {
     if (this.state.knockedOut !== "") {
+      let winner = this.state.knockedOut === "player1" ? "player2" : "player1"
+      // console.log("THIS PERSON LOST", this.props[this.state.knockedOut].id);
+      // console.log("THIS PERSON WON", this.props[winner].id);
+      const results = {winner: this.props[winner].id, loser: this.props[this.state.knockedOut].id}
+      this.props.handleStats(results)
       return <button className="btn rematch" onClick={this.props.rematch}>Rematch?</button>
     }
   }
@@ -417,7 +422,7 @@ class BattleContainer extends React.Component {
   render(){
     // console.log("PLAYER-1", this.state.player1);
     // console.log("PLAYER-2", this.state.player2);
-    {console.log(this.state.player1);}
+    {console.log("ID", this.props.player1.id);}
     {console.log(this.state.player2);}
 
     return (
