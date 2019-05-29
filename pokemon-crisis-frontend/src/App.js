@@ -7,6 +7,9 @@ import PokemonSelect from './battle-components/PokemonSelect'
 import PlayerSignIn from './battle-components/PlayerSignIn'
 import PickPokemon from './battle-components/PickPokemon'
 import pk from './Pokemon-Kry51s.png'
+import b1 from './b1.jpg'
+import b2 from './b2.jpg'
+import b3 from './b3.jpg'
 
 class App extends React.Component {
   state = { pokemons: [], player1: {}, player2: {}, battleReady: false, selectedPokemen: {} , turn: ""}
@@ -25,14 +28,24 @@ class App extends React.Component {
   renderMoveNames = (pokemon) => {
     let moves = []
      pokemon.moves.forEach(move => {
-       moves.push(move.move.name)
+       moves.push(_.capitalize(move.move.name))
     })
     moves = moves.join(", ")
     return moves
   }
 
+  renderTypeNames = (pokemon) => {
+    let types = []
+    pokemon.types.forEach(type => {
+      types.push(_.capitalize(type.type.name))
+   })
+
+   types = types.join(", ")
+   return types
+  }
+
   catchPokemon = (poke) => {
-    const pokemon = {...poke, moveNames: this.renderMoveNames(poke)}
+    const pokemon = {...poke, moveNames: this.renderMoveNames(poke), typeNames: this.renderTypeNames(poke)}
     this.setState( { selectedPokemen: pokemon } )
   }
 
@@ -76,7 +89,9 @@ class App extends React.Component {
 
   handlePokemonSelect = (e) => {
     e.preventDefault()
-    this.setState( { [this.state.turn]: { ...this.state[this.state.turn], battlePoke: this.state.selectedPokemen }, selectedPokemen: "", turn: this.state.turn === "player1" ? "player2" : "player1" } )
+    if (this.state.selectedPokemen !== {} ) {
+      this.setState( { [this.state.turn]: { ...this.state[this.state.turn], battlePoke: this.state.selectedPokemen }, selectedPokemen: "", turn: this.state.turn === "player1" ? "player2" : "player1" } )
+    }
   }
 
   consitionallyRenderPickPokes = () => {
@@ -103,8 +118,6 @@ class App extends React.Component {
     //  - the players are both created
     //  - a player's name renders
     //  - both players have not yet picked a pokemon
-    console.log(this.state.player1.battlePoke)
-    console.log(this.state.player2.battlePoke)
     if(this.state.battleReady && this.state.player1.name && (!this.state.player2.battlePoke || !this.state.player1.battlePoke)) {
       return <PickPokemon selectedPokemen={this.state.selectedPokemen} player1={this.state.player1} player2={this.state.player2} turn={this.state.turn} handlePokemonSelect={this.handlePokemonSelect}/>
     }
@@ -118,11 +131,16 @@ class App extends React.Component {
     this.setState( {player1: {...this.state.player1, battlePoke: null }, player2: {...this.state.player2, battlePoke: null } } )
   }
 
+  randomBackground = () => {
+  return _.sample([""+b1+"", ""+b2+"", ""+b3+""])
+
+  }
+
   render(){
-    console.log(this.state.turn)
+    console.log(this.randomBackground())
     return (
       <div className="App">
-        <header className="App-header">
+        <header className="App-header" style={{backgroundImage: `url(${this.randomBackground()})`}}>
           {this.renderLogo()}
           {this.renderTitle()}
           {this.renderPickPokemon()}

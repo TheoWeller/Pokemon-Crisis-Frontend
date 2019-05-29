@@ -16,18 +16,29 @@
   width: 90%;
 }
 
+#battle-container {
+  width: 95%;
+}
+
+#battle-grid {
+  width: 100%;
+  margin: 0;
+  align-content: stretch;
+}
+
 #pick-pokes {
   width: 90vw;
   display: flex;
   justify-content: space-evenly;
-  margin-bottom: 5%
+  margin-top: 1.5em;
+  margin-bottom: 5%;
   /* flex-grow: 2; */
   /* align-content: center; */
   /* background: white; */
 }
 
-#pick-pokes img {
-
+#margin-boi {
+  margin-bottom: 2em;
 }
 
 #sign-in-form {
@@ -41,9 +52,54 @@
   min-height: 11em;
 }
 
+.pick-poke-card {
+  height: 100%;
+  overflow: hidden;
+}
+.pick-poke-card img{
+  height: inherit;
+  max-height: 90%;
+
+}
+
+#pokeball {
+
+}
+
+#pick-pokes .row {
+  height: 12.5em;
+}
+
+#player-1-card {
+  width: 70%;
+  max-height: 25em;
+  min-height: 25em;
+
+}
+
+#player-2-card {
+  width: 70%;
+  max-height: 25em;
+  min-height: 25em;
+}
+
+#battle-buddies-1 {
+  display: flex;
+  justify-content: space-evenly;
+}
+#battle-buddies-2 {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.row .column {
+  width: 11em;
+}
+
 .poke-select-content {
   display: flex;
   justify-content: center;
+  overflow: scroll;
 }
 
 .poke-select-headers {
@@ -51,8 +107,18 @@
   color: black;
 }
 
+.select-details {
+  font-size: large;
+}
+
 #pick-pokes h1 {
   color: black;
+  margin-bottom: 1em;
+}
+
+#catch {
+  margin: 1.5em;
+  margin-top: 3.5em;
 }
 
 .App-header {
@@ -86,6 +152,18 @@
   margin: 0 .25em 0 0;
   /* line-height: 1em; */
   border-radius: .3em;
+}
+
+.rematch {
+  color: #FFD700;
+  text-shadow: 3px 3px #1b03a3;
+  border-color: #FFD700;
+  margin-top: 340%;
+}
+
+.rematch:hover {
+  color: #1b03a3;
+  background: #FFD700;
 }
 
 .water {
