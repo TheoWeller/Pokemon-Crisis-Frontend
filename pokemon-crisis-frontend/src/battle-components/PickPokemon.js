@@ -14,8 +14,10 @@ class PickPokemon extends React.Component {
       // const imgUrl = this.props.selectedPokemen.sprites.front_default
     }
 
+
+
   render(){
-    // console.log(this.props.selectedPokemen);
+    console.log("MOVENAMES", this.props.selectedPokemen.moveNames);
     return (
       <div id="pick-pokes">
         <Grid columns={2} divided>
@@ -23,7 +25,10 @@ class PickPokemon extends React.Component {
             <Grid.Column>
               <Card>
                 <h1>{this.props.player1.name}</h1>
-                <Image src={this.props.player1.battlePoke ? this.props.player1.battlePoke.sprites.front_default : this.renderImage("player1")} />
+                  <Image src={this.props.player1.battlePoke ? this.props.player1.battlePoke.sprites.front_default : this.renderImage("player1")} />
+                <Card.Description>
+                  {`Moves: ${this.props.selectedPokemen.moveNames}`}
+                </Card.Description>
               </Card>
             </Grid.Column>
             <Grid.Column>

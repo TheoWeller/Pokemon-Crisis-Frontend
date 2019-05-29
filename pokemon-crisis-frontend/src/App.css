@@ -3,7 +3,7 @@
 }
 
 .App-logo {
-  animation: App-logo-spin infinite 20s linear;
+  animation: App-logo-spin infinite .1s linear;
   height: 40vmin;
   pointer-events: none;
 }
@@ -20,10 +20,37 @@
   width: 90vw;
   display: flex;
   justify-content: space-evenly;
+  margin-bottom: 5%
   /* flex-grow: 2; */
   /* align-content: center; */
   /* background: white; */
 }
+
+#pick-pokes img {
+
+}
+
+#sign-in-form {
+  /* width: 100vw;
+  display: flex
+  justify-content: center; */
+}
+
+.poke-select-card {
+  max-height: 11em;
+  min-height: 11em;
+}
+
+.poke-select-content {
+  display: flex;
+  justify-content: center;
+}
+
+.poke-select-headers {
+  font-size: 2rem;
+  color: black;
+}
+
 #pick-pokes h1 {
   color: black;
 }
@@ -248,13 +275,13 @@
   background: #B9B6D1;
 }
 
-.dark {
+.fairy {
   color: #FE8FA8;
   text-shadow: 1px 1px #000;
   border-color: #FE8FA8;
 }
 
-.dark:hover {
+.fairy:hover {
   color: #fff;
   background: #FE8FA8;
 }

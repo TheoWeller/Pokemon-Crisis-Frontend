@@ -6,9 +6,10 @@ import _ from 'lodash'
 import PokemonSelect from './battle-components/PokemonSelect'
 import PlayerSignIn from './battle-components/PlayerSignIn'
 import PickPokemon from './battle-components/PickPokemon'
+import pk from './Pokemon-Kry51s.png'
 
 class App extends React.Component {
-  state = { pokemons: [], player1: {}, player2: {}, battleReady: false, selectedPokemen: {} , turn: "player2"}
+  state = { pokemons: [], player1: {}, player2: {}, battleReady: false, selectedPokemen: {} , turn: ""}
 
   componentDidMount(){
     this.fetchAllPokemon()
@@ -21,10 +22,20 @@ class App extends React.Component {
     .then(data => this.setState({pokemons: data}))
   }
 
-  catchPokemon = (poke) => {
-    console.log(poke)
-    this.setState( { selectedPokemen: poke } )
+  renderMoveNames = (pokemon) => {
+    let moves = []
+     pokemon.moves.forEach(move => {
+       moves.push(move.move.name)
+    })
+    moves = moves.join(", ")
+    return moves
   }
+
+  catchPokemon = (poke) => {
+    const pokemon = {...poke, moveNames: this.renderMoveNames(poke)}
+    this.setState( { selectedPokemen: pokemon } )
+  }
+
 
   signUp = (p1, p2, e) => {
     e.preventDefault()
@@ -57,31 +68,69 @@ class App extends React.Component {
     }
   }
 
+  renderTitle = () => {
+    if(!this.state.player1.name && !this.state.player2.name) {
+      return <img src={pk} />
+    }
+  }
+
   handlePokemonSelect = (e) => {
     e.preventDefault()
     this.setState( { [this.state.turn]: { ...this.state[this.state.turn], battlePoke: this.state.selectedPokemen }, selectedPokemen: "", turn: this.state.turn === "player1" ? "player2" : "player1" } )
   }
 
+  consitionallyRenderPickPokes = () => {
+    if(this.state.player1.battlePoke && this.state.player2.battlePoke) {
+      return <BattleContainer player1={this.state.player1} player2={this.state.player2} turn={this.state.turn} turnChange={this.turnChange} rematch={this.rematch}/>
+    } else {
+      return(
+        <div>
+          <PokemonSelect catchPokemon={this.catchPokemon} pokemons={this.state.pokemons} battleReady={this.state.battleReady}/>
+        </div>
+      )
+    }
+  }
 
 
+  renderSignIn = () => {
+    if(!this.state.player1.name && !this.state.player1.name){
+      return <PlayerSignIn signUp={this.signUp} player1={this.state.player1} player2={this.state.player2} />
+    }
+  }
 
+  renderPickPokemon = () => {
+    // you can only pick your pokemon if:
+    //  - the players are both created
+    //  - a player's name renders
+    //  - both players have not yet picked a pokemon
+    console.log(this.state.player1.battlePoke)
+    console.log(this.state.player2.battlePoke)
+    if(this.state.battleReady && this.state.player1.name && (!this.state.player2.battlePoke || !this.state.player1.battlePoke)) {
+      return <PickPokemon selectedPokemen={this.state.selectedPokemen} player1={this.state.player1} player2={this.state.player2} turn={this.state.turn} handlePokemonSelect={this.handlePokemonSelect}/>
+    }
+  }
 
+  turnChange = () => {
+    this.setState({turn: this.state.turn === "player1" ? "player2" : "player1"})
+  }
+
+  rematch = () => {
+    this.setState( {player1: {...this.state.player1, battlePoke: null }, player2: {...this.state.player2, battlePoke: null } } )
+  }
 
   render(){
-
-    // console.log(this.state.player1)
-    // console.log(this.state.player2)
     console.log(this.state.turn)
     return (
       <div className="App">
         <header className="App-header">
-        <PickPokemon selectedPokemen={this.state.selectedPokemen} player1={this.state.player1} player2={this.state.player2} turn={this.state.turn} handlePokemonSelect={this.handlePokemonSelect}/>
-        <PokemonSelect catchPokemon={this.catchPokemon} pokemons={this.state.pokemons} battleReady={this.state.battleReady}/>
           {this.renderLogo()}
-          <PlayerSignIn signUp={this.signUp} player1={this.state.player1} player2={this.state.player2} />
-          <br />
-          <BattleContainer pokemons={this.state.pokemons}/>
+          {this.renderTitle()}
+          {this.renderPickPokemon()}
+          {this.renderSignIn()}
+          {this.consitionallyRenderPickPokes()}
+
         </header>
+
       </div>
     );
 
