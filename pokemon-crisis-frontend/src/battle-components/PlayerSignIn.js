@@ -1,5 +1,5 @@
 import React from 'react';
-import {Form} from 'semantic-ui-react';
+import {Form, Button} from 'semantic-ui-react';
 
 class PlayerSignIn extends React.Component {
 
@@ -15,13 +15,20 @@ class PlayerSignIn extends React.Component {
 
   renderForm = () => {
     return (
-    <Form onSubmit={(e) => this.props.signUp(this.state.player1, this.state.player2, e)}>
-      <Form.Group widths='equal'>
-        <Form.Input fluid label='Player 1' placeholder='Name' value={this.state.player1} onChange={(e) => this.renderInput("player1", e)}/>
-        <Form.Input fluid label='Player 2' placeholder='Name' value={this.state.player2} onChange={(e) => this.renderInput("player2", e)}/>
-        <Form.Button>Battle</Form.Button>
-       </Form.Group>
-    </Form>
+        <Form className="sign-in-form" onSubmit={(e) => this.props.signUp(this.state.player1, this.state.player2, e)}>
+          <Form.Group widths='equal'>
+            <Form.Field>
+              <Form.Input fluid placeholder='Player 1' value={this.state.player1} onChange={(e) => this.renderInput("player1", e)}/>
+            </Form.Field>
+              <Form.Field>
+                <Form.Input fluid placeholder='Player 2' value={this.state.player2} onChange={(e) => this.renderInput("player2", e)}/>
+              </Form.Field>
+
+
+
+           </Form.Group>
+           <Button>Battle</Button>
+        </Form>
     )
   }
 
