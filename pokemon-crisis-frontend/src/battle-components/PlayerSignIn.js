@@ -15,7 +15,7 @@ class PlayerSignIn extends React.Component {
 
   renderForm = () => {
     return (
-        <Form className="sign-in-form" onSubmit={(e) => this.props.signUp(this.state.player1, this.state.player2, e)}>
+        <Form className="sign-in-form" id="signin" onSubmit={(e) => this.props.signUp(this.state.player1, this.state.player2, e)}>
           <Form.Group widths='equal'>
             <Form.Field>
               <Form.Input fluid placeholder='Player 1' value={this.state.player1} onChange={(e) => this.renderInput("player1", e)}/>
