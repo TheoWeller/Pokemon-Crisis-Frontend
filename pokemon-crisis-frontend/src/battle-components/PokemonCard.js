@@ -8,7 +8,7 @@ class PokemonCard extends React.Component{
       <div className="column">
 
         <Card style={{background: "white"} } className="poke-select-card">
-          <Image className="ui image" src={this.props.pokemon.sprites.front_default} wrapped ui={false} onClick={() => this.props.catchPokemon(this.props.pokemon)}/>
+          <Image className="ui image" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${this.props.pokemon.id}.png`} wrapped ui={false} onClick={() => this.props.catchPokemon(this.props.pokemon)}/>
 
           <Card.Content className="poke-select-content">
             <b className="poke-select-headers">{_.capitalize(this.props.pokemon.name)}</b>
