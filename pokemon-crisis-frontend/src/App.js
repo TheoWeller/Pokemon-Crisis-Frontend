@@ -6,9 +6,9 @@ import _ from 'lodash'
 import PokemonSelect from './battle-components/PokemonSelect'
 import PlayerSignIn from './battle-components/PlayerSignIn'
 import PickPokemon from './battle-components/PickPokemon'
+import Leaderboard from './battle-components/Leaderboard'
 import pk from './Pokemon-Kry51s.png'
 import b1 from './b1.jpg'
-import b2 from './b2.jpg'
 import b3 from './b3.jpg'
 
 class App extends React.Component {
@@ -84,7 +84,7 @@ class App extends React.Component {
 
   renderLogo = () => {
     if(!this.state.player1.name && !this.state.player2.name) {
-      return <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${_.random(1, 807)}.png`} className="App-logo" alt="logo" />
+      return <img id="pk" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${_.random(1, 807)}.png`} className="App-logo" alt="logo" />
     }
   }
 
@@ -116,7 +116,12 @@ class App extends React.Component {
 
   renderSignIn = () => {
     if(!this.state.player1.name && !this.state.player1.name){
-      return <PlayerSignIn signUp={this.signUp} player1={this.state.player1} player2={this.state.player2} />
+      return (
+        <div>
+          <PlayerSignIn signUp={this.signUp} player1={this.state.player1} player2={this.state.player2} />
+          <Leaderboard leaderBoard={this.state.leaderBoard}/>
+        </div>
+      )
     }
   }
 
@@ -139,7 +144,7 @@ class App extends React.Component {
   }
 
   randomBackground = () => {
-  return _.sample([""+b1+"", ""+b2+"", ""+b3+""])
+  return _.sample([""+b1+"", ""+b3+""])
   }
 
   handleStats = (results) => {
@@ -154,9 +159,9 @@ class App extends React.Component {
     })
   }
 
-  renderLeaderBoard = () => {
-    return this.state.leaderBoard.map(player => <div>{player.name}|| Wins: {player.win}</div>)
-  }
+  // renderLeaderBoard = () => {
+  //   return this.state.leaderBoard.map(player => <div>{player.name}|| Wins: {player.win}</div>)
+  // }
 
   render(){
     console.log(this.randomBackground())
@@ -168,12 +173,12 @@ class App extends React.Component {
           {this.renderPickPokemon()}
           {this.renderSignIn()}
           {this.consitionallyRenderPickPokes()}
-          { this.state.leaderBoard? this.renderLeaderBoard() : null }
         </header>
       </div>
     );
 
   }
 }
+// { this.state.leaderBoard? this.renderLeaderBoard() : null }
 
 export default App;

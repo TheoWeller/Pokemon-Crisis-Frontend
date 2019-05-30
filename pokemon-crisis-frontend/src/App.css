@@ -3,17 +3,53 @@
 }
 
 .App-logo {
-  animation: App-logo-spin infinite .1s linear;
+  animation: App-logo-spin infinite .005s linear;
   height: 40vmin;
   pointer-events: none;
+  margin-top: -60px;
 }
 
 .ui.form {
-  width: 100%;
+  width: 400px;
 }
 
 .ui.grip {
   width: 90%;
+}
+
+#leaderBoard {
+  width: 80%;
+}
+
+#pk {
+  margin-top: -1em;
+}
+
+#table {
+  width: 22em;
+  background: transparent none;
+  color: white;
+  text-align: inherit;
+  /* background-image: rgba(255, 255, 255, 1);  */
+}
+
+.ui.table thead th {
+  border-color: #FFD700;
+}
+
+.ui.table tr td {
+  border-color: #FFD700;
+}
+
+.ui.table thead tr:first-child> .table-header {
+  background: transparent none;
+  color: white;
+}
+
+#signin {
+  margin-left: 20%;
+  margin-right: 27%;
+  margin-bottom: 2em;
 }
 
 #battle-container {
@@ -99,7 +135,7 @@
 .poke-select-content {
   display: flex;
   justify-content: center;
-  overflow: scroll;
+  /* overflow: scroll; */
 }
 
 .poke-select-headers {
@@ -119,6 +155,10 @@
 #catch {
   margin: 1.5em;
   margin-top: 3.5em;
+}
+
+#home {
+
 }
 
 .App-header {
@@ -368,4 +408,11 @@
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
+}
+
+.ui.table {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  border-color: #FFD700;
 }

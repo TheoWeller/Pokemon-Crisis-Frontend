@@ -377,11 +377,13 @@ class BattleContainer extends React.Component {
       }
     }
     if (defendingType.length === 1) {
-      return chart[attackingType][defendingType[0].type.name] ? chart[attackingType][defendingType[0].type.name] : 1
+
+      return chart[attackingType][defendingType[0].type.name] === undefined ? 1 : chart[attackingType][defendingType[0].type.name]
     }  else {
-      const firstType = chart[attackingType][defendingType[0].type.name] ? chart[attackingType][defendingType[0].type.name] : 1
-      const secondType = chart[attackingType][defendingType[1].type.name] ? chart[attackingType][defendingType[1].type.name] : 1
-      return firstType * secondType
+      const firstType = chart[attackingType][defendingType[0].type.name] === undefined ? 1 : chart[attackingType][defendingType[0].type.name]
+      const secondType = chart[attackingType][defendingType[1].type.name] === undefined ? 1 : chart[attackingType][defendingType[1].type.name]
+      
+      return (firstType * secondType)
     }
   }
 
