@@ -25,7 +25,12 @@ class BattleContainer extends React.Component {
 
   rematch = () => {
     if (this.state.knockedOut !== "") {
-      return <button onClick={this.props.rematch}>Rematch?</button>
+      let winner = this.state.knockedOut === "player1" ? "player2" : "player1"
+      // console.log("THIS PERSON LOST", this.props[this.state.knockedOut].id);
+      // console.log("THIS PERSON WON", this.props[winner].id);
+      const results = {winner: this.props[winner].id, loser: this.props[this.state.knockedOut].id}
+      this.props.handleStats(results)
+      return <button className="btn rematch" onClick={this.props.rematch}>Rematch?</button>
     }
   }
 
@@ -143,7 +148,7 @@ class BattleContainer extends React.Component {
   *****************************************************************************/
 
   useMove = (move, pkmn) => {
-    if (this.props.turn === pkmn) {
+    if (this.props.turn === pkmn && this.state.knockedOut === "") {
 
     const enemy = pkmn === "player1" ? "player2" : "player1"
     let attackingStat
@@ -177,7 +182,7 @@ class BattleContainer extends React.Component {
     // TODO: WE SHOULD DISPLAY THESE ON SCREEN SOMEHOW
 
     if (typeMultipler === 0.5){
-      message = message.concat('\n', "It was not very effective")
+      message = message.concat('\n', "It was not very effective.")
     } else if (typeMultipler === 2) {
       message = message.concat('\n', "It was super effective!")
     } else if (typeMultipler === 0) {
@@ -393,14 +398,19 @@ class BattleContainer extends React.Component {
   renderBattleCards = () => {
     if (this.state.counter > 7) {
       return (
-        <Grid columns={2} divided>
+        <Grid columns={2} divided id="battle-grid">
           <Grid.Row>
-            <Grid.Column>
+          <Grid.Column width={1}/>
+            <Grid.Column id="battle-buddies-1" width={6}>
               <PokemonCard1 turn={this.props.turn} poke={this.state.player1} useMove={this.useMove} />
             </Grid.Column>
-            <Grid.Column>
+            <Grid.Column width={2}>
+              {this.rematch()}
+            </Grid.Column>
+            <Grid.Column id="battle-buddies-2" width={6}>
               <PokemonCard2 turn={this.props.turn} poke={this.state.player2} useMove={this.useMove} />
             </Grid.Column>
+            <Grid.Column width={1}/>
           </Grid.Row>
         </Grid>
       )
@@ -412,17 +422,15 @@ class BattleContainer extends React.Component {
   render(){
     // console.log("PLAYER-1", this.state.player1);
     // console.log("PLAYER-2", this.state.player2);
-    {console.log(this.state.player1);}
+    {console.log("ID", this.props.player1.id);}
     {console.log(this.state.player2);}
 
     return (
-      <div>
-        <h1>P0k3m0n KR1515</h1>
+      <div id="battle-container">
+        <h1></h1>
           {this.renderBattleCards()}
         <br />
           {this.state.message}
-        <br />
-          {this.rematch()}
       </div>
     )
 

@@ -42,14 +42,17 @@ class PokemonCard1 extends React.Component{
       return `btn ${type}`
     }
 
-
+    renderTurn = () => {
+      if(this.props.turn === "player1"){
+        return {"borderStyle": "solid", "borderColor": "gold", "borderWidth": ".4em"}
+      } else {
+        return {"borderStyle": "solid", "borderColor": "black", "borderWidth": ".4em"}
+      }
+    }
 
     render() {
       return (
-        <Card style={{background: "blue"}}>
-          <div style={{color: "silver"}}>
-            {this.props.turn === "player1" ? "It is your turn!" : null}
-          </div>
+        <Card id="player-1-card" style={this.renderTurn()}>
           <Image src={this.props.poke.sprites.front_default} wrapped ui={false} />
           <Card.Content>
             <Card.Header>{this.props.poke.name}</Card.Header>
