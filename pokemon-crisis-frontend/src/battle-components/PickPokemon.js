@@ -7,7 +7,7 @@ class PickPokemon extends React.Component {
     renderImage = (player) => {
 
       if (this.props.turn === player) {
-        return this.props.selectedPokemen.sprites ? this.props.selectedPokemen.sprites.front_default : "https://pbs.twimg.com/profile_images/986725869665173505/HO26SmgX_200x200.jpg"
+        return this.props.selectedPokemen.sprites ? `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${this.props.selectedPokemen.id}.png` : "https://pbs.twimg.com/profile_images/986725869665173505/HO26SmgX_200x200.jpg"
       } else {
         return "https://pbs.twimg.com/profile_images/986725869665173505/HO26SmgX_200x200.jpg"
       }
@@ -38,13 +38,14 @@ class PickPokemon extends React.Component {
       }
     }
 
-    
+
     // <Card.Description>
     //   {`Moves: ${this.props.selectedPokemen.moveNames}`}
     // </Card.Description>
 
   render(){
-    console.log("TYPES-NAMES", this.props.selectedPokemen.typeNames);
+    // console.log("TYPES-NAMES", this.props.selectedPokemen.typeNames);
+    console.log(this.props.selectedPokemen);
     return (
       <div>
         <div id="pick-pokes">
@@ -53,7 +54,7 @@ class PickPokemon extends React.Component {
               <Grid.Column>
                 <Card className="pick-poke-card" style={this.renderTurn("player1")}>
                   <h1>{this.props.player1.name}</h1>
-                    <Image className="ui image" src={this.props.player1.battlePoke ? this.props.player1.battlePoke.sprites.front_default : this.renderImage("player1")} />
+                    <Image className="ui image" src={this.props.player1.battlePoke ? `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${this.props.player1.battlePoke.id}.png` : this.renderImage("player1")} />
                 </Card>
 
                 <Grid.Column>

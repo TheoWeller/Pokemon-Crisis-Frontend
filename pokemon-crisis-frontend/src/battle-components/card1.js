@@ -53,7 +53,7 @@ class PokemonCard1 extends React.Component{
     render() {
       return (
         <Card id="player-1-card" style={this.renderTurn()}>
-          <Image src={this.props.poke.sprites.front_default} wrapped ui={false} />
+          <Image src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${this.props.poke.id}.png`} wrapped ui={false} />
           <Card.Content>
             <Card.Header>{this.props.poke.name}</Card.Header>
             <Card.Meta>

@@ -15,12 +15,13 @@ import {Grid} from 'semantic-ui-react';
 let newObj = {}
 class BattleContainer extends React.Component {
 
-  state = {player1: this.props.player1.battlePoke, player2: this.props.player2.battlePoke, playerMoves: [], level: 50, counter: 0, message: "", knockedOut: ""}
+  state = {player1: this.props.player1.battlePoke, player2: this.props.player2.battlePoke, playerMoves: [], level: 20, counter: 0, message: "", knockedOut: ""}
 
   componentDidMount(){
     this.fetchPlayersHelper()
     this.calculateStat("player1")
     this.calculateStat("player2")
+    this.determineFirst()
   }
 
   rematch = () => {
@@ -382,7 +383,7 @@ class BattleContainer extends React.Component {
     }  else {
       const firstType = chart[attackingType][defendingType[0].type.name] === undefined ? 1 : chart[attackingType][defendingType[0].type.name]
       const secondType = chart[attackingType][defendingType[1].type.name] === undefined ? 1 : chart[attackingType][defendingType[1].type.name]
-      
+
       return (firstType * secondType)
     }
   }
@@ -395,6 +396,20 @@ class BattleContainer extends React.Component {
       const secondType = attackingPokemon[1].type.name === attackingType ? 1.5 : 1
       return firstType * secondType
     }
+  }
+
+  determineFirst = () => {
+    const player1Speed = this.state.player1.stats[0].base_stat
+    const player2Speed = this.state.player2.stats[0].base_stat
+    let fasterPoke
+    if (player1Speed > player2Speed){
+      fasterPoke = "player1"
+    } else if (player1Speed < player2Speed) {
+      fasterPoke = "player2"
+    } else if (player1Speed === player2Speed) {
+      fasterPoke = _.random(["player1", "player2"])
+    }
+    this.props.determineFirstPoke(fasterPoke)
   }
 
   renderBattleCards = () => {
@@ -424,9 +439,9 @@ class BattleContainer extends React.Component {
   render(){
     // console.log("PLAYER-1", this.state.player1);
     // console.log("PLAYER-2", this.state.player2);
-    {console.log("ID", this.props.player1.id);}
-    {console.log(this.state.player2);}
-
+    // {console.log("ID", this.props.player1.id);}
+    // {console.log(this.state.player2);}
+    {console.log(this.props.turn)}
     return (
       <div id="battle-container">
         <h1></h1>

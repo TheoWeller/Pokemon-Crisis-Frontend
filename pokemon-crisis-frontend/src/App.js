@@ -103,7 +103,7 @@ class App extends React.Component {
 
   consitionallyRenderPickPokes = () => {
     if(this.state.player1.battlePoke && this.state.player2.battlePoke) {
-      return <BattleContainer handleStats={this.handleStats} player1={this.state.player1} player2={this.state.player2} turn={this.state.turn} turnChange={this.turnChange} rematch={this.rematch}/>
+      return <BattleContainer handleStats={this.handleStats} player1={this.state.player1} player2={this.state.player2} turn={this.state.turn} turnChange={this.turnChange} rematch={this.rematch} determineFirstPoke={this.determineFirstPoke} />
     } else {
       return(
         <div>
@@ -137,6 +137,10 @@ class App extends React.Component {
 
   turnChange = () => {
     this.setState({turn: this.state.turn === "player1" ? "player2" : "player1"})
+  }
+
+  determineFirstPoke = (first) => {
+    this.setState({turn: first})
   }
 
   rematch = () => {
