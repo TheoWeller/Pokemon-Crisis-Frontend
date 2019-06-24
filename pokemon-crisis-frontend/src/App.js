@@ -148,7 +148,7 @@ class App extends React.Component {
   }
 
   randomBackground = () => {
-  return _.sample([""+b1+"", ""+b3+""])
+  return ""+b3+""
   }
 
   handleStats = (results) => {

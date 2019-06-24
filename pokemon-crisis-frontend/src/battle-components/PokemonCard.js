@@ -6,26 +6,20 @@ class PokemonCard extends React.Component{
   render() {
     return (
       <div className="column">
-
         <Card style={{background: "white"} } className="poke-select-card">
           <Image className="ui image" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${this.props.pokemon.id}.png`} wrapped ui={false} onClick={() => this.props.catchPokemon(this.props.pokemon)}/>
-
           <Card.Content className="poke-select-content">
             <b className="poke-select-headers">{_.capitalize(this.props.pokemon.name)}</b>
             <Card.Meta>
-
             </Card.Meta>
             <Card.Description>
-
             </Card.Description>
           </Card.Content>
           <Card.Content extra>
-
           </Card.Content>
         </Card>
       </div>
     )
   }
 }
-
 export default PokemonCard

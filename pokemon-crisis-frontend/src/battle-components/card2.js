@@ -16,7 +16,6 @@ class PokemonCard2 extends React.Component{
     }
   }
 
-
   render() {
     return (
       <Card id="player-2-card" style={this.renderTurn()}>

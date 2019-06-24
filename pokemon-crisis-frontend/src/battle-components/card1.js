@@ -35,8 +35,6 @@ class PokemonCard1 extends React.Component{
   //     this.setState({[stat]: convertedStat})
   //   }
   // }
-
-
     renderTypeColor = (i) => {
       const type = (this.props.poke.moves[i] && this.props.poke.moves[i].type) ? this.props.poke.moves[i].type.name : "plain"
       return `btn ${type}`

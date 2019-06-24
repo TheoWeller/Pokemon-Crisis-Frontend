@@ -51,7 +51,6 @@ class Leaderboard extends React.Component {
               </Table.Row>
             </Table.Body>
         </Table>
-
     </div>
     )
   }

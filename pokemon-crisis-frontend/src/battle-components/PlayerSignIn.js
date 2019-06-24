@@ -23,9 +23,6 @@ class PlayerSignIn extends React.Component {
               <Form.Field>
                 <Form.Input fluid placeholder='Player 2' value={this.state.player2} onChange={(e) => this.renderInput("player2", e)}/>
               </Form.Field>
-
-
-
            </Form.Group>
            <Button>Battle</Button>
         </Form>
@@ -33,7 +30,6 @@ class PlayerSignIn extends React.Component {
   }
 
   renderPlayer1 = () => {
-    console.log(this.props);
     return (
       <span>
         Welcome {this.props.player1.name}!
@@ -42,8 +38,6 @@ class PlayerSignIn extends React.Component {
     )
 
   }
-
-
 
   render() {
     return (

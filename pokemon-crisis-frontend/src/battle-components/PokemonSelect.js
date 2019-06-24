@@ -6,7 +6,6 @@ import PokemonCard from './PokemonCard'
 class PokemonSelect extends React.Component {
 
   renderPokes = () => {
-    // console.log("HEY it BRok3", this.props);
     return this.props.pokemons.map(pokemon => <PokemonCard catchPokemon={this.props.catchPokemon} pokemon={pokemon}/>)
   }
 
@@ -17,9 +16,8 @@ class PokemonSelect extends React.Component {
   render() {
     return (
       <div className="ui six column grid" id="margin-boi">
-      {this.contiionallyRenderAllPokes()}
+        {this.contiionallyRenderAllPokes()}
       </div>
-
     )
   }
 

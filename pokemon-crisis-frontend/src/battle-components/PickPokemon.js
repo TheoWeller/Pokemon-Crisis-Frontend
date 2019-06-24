@@ -11,7 +11,6 @@ class PickPokemon extends React.Component {
       } else {
         return "https://pbs.twimg.com/profile_images/986725869665173505/HO26SmgX_200x200.jpg"
       }
-      // const imgUrl = this.props.selectedPokemen.sprites.front_default
     }
 
     renderTypes = (player) => {
@@ -21,6 +20,7 @@ class PickPokemon extends React.Component {
         return null
       }
     }
+
     renderMoves = (player) => {
       if (this.props.selectedPokemen.moveNames && this.props.turn === player) {
         return `Moves: ${this.props.selectedPokemen.moveNames}`
@@ -28,7 +28,6 @@ class PickPokemon extends React.Component {
         return null
       }
     }
-
 
     renderTurn = (player) => {
       if(this.props.turn === player){
@@ -38,14 +37,7 @@ class PickPokemon extends React.Component {
       }
     }
 
-
-    // <Card.Description>
-    //   {`Moves: ${this.props.selectedPokemen.moveNames}`}
-    // </Card.Description>
-
   render(){
-    // console.log("TYPES-NAMES", this.props.selectedPokemen.typeNames);
-    console.log(this.props.selectedPokemen);
     return (
       <div>
         <div id="pick-pokes">
@@ -56,7 +48,6 @@ class PickPokemon extends React.Component {
                   <h1>{this.props.player1.name}</h1>
                     <Image className="ui image" src={this.props.player1.battlePoke ? `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${this.props.player1.battlePoke.id}.png` : this.renderImage("player1")} />
                 </Card>
-
                 <Grid.Column>
                   <div className="select-details">
                     {this.renderTypes("player1")}
