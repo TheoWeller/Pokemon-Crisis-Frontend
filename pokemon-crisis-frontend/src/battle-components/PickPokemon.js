@@ -2,10 +2,7 @@ import React from 'react';
 import {Grid, Image, Card, Button } from 'semantic-ui-react';
 
 class PickPokemon extends React.Component {
-
-
     renderImage = (player) => {
-
       if (this.props.turn === player) {
         return this.props.selectedPokemen.sprites ? `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${this.props.selectedPokemen.id}.png` : "https://pbs.twimg.com/profile_images/986725869665173505/HO26SmgX_200x200.jpg"
       } else {

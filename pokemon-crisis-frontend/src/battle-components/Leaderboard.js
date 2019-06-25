@@ -54,7 +54,6 @@ class Leaderboard extends React.Component {
     </div>
     )
   }
-
 }
 
 export default Leaderboard
