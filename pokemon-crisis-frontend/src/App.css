@@ -3,7 +3,7 @@
 }
 
 .App-logo {
-  animation: App-logo-spin infinite .005s linear;
+  animation: App-logo-spin infinite 10s linear;
   height: 40vmin;
   pointer-events: none;
   margin-top: -60px;
@@ -157,9 +157,6 @@
   margin-top: 3.5em;
 }
 
-#home {
-
-}
 
 .App-header {
   background-color: #282c34;

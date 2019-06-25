@@ -168,13 +168,13 @@ class App extends React.Component {
   // }
 
   render(){
-    console.log(this.randomBackground())
+    console.log("PICLK POKES", this.state.pokemons);
     return (
       <div className="App">
         <header className="App-header" style={{backgroundImage: `url(${this.randomBackground()})`}}>
           {this.renderLogo()}
           {this.renderTitle()}
-          {this.renderPickPokemon()}
+          {this.state.pokemons.length == 0 ? <h1>Loading Pokemons...</h1> : this.renderPickPokemon()}
           {this.renderSignIn()}
           {this.consitionallyRenderPickPokes()}
         </header>

@@ -7,7 +7,7 @@ class Leaderboard extends React.Component {
     if (this.props.leaderBoard){
       return this.props.leaderBoard[index][stat]
     } else {
-      return "Pending..."
+      return "Loading..."
     }
   }
 

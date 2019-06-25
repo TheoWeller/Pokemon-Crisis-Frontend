@@ -105,8 +105,7 @@ class BattleContainer extends React.Component {
       CALCULATING INITIAL STATISTICS
   *******************************************************************************/
     calculateStat = (player) => {
-
-      const convertedHP = Math.floor( ( ( ( 2 * this.state[player].stats[5].base_stat + 0 + ( 0/4 ) ) * this.state.level) / 100 ) + this.state.level + 10
+      const convertedHP = Math.floor( ( ( 2 * this.state[player].stats[5].base_stat + 0 + ( 0/4 ) ) * this.state.level) / 100 ) + this.state.level + 10
       const convertedAtk = this.convertedStatNotHP(player, 4)
       const convertedDef = this.convertedStatNotHP(player, 3)
       const convertedSAtk = this.convertedStatNotHP(player, 2)
@@ -368,7 +367,6 @@ class BattleContainer extends React.Component {
     }  else {
       const firstType = chart[attackingType][defendingType[0].type.name] === undefined ? 1 : chart[attackingType][defendingType[0].type.name]
       const secondType = chart[attackingType][defendingType[1].type.name] === undefined ? 1 : chart[attackingType][defendingType[1].type.name]
-
       return (firstType * secondType)
     }
   }
@@ -416,12 +414,14 @@ class BattleContainer extends React.Component {
           </Grid.Row>
         </Grid>
       )
+    } else {
+      return <h1>Loading...</h1>
     }
   }
   render(){
+    console.log("BATTLE-CONTAINER-STATE", this.state);
     return (
       <div id="battle-container">
-        <h1></h1>
           {this.renderBattleCards()}
         <br />
           {this.state.message}
