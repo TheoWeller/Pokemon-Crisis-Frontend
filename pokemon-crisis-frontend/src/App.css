@@ -139,7 +139,7 @@
 }
 
 .poke-select-headers {
-  font-size: 2rem;
+  font-size: 1.5vw;
   color: black;
 }
 
@@ -193,7 +193,6 @@
 
 .rematch {
   color: #FFD700;
-  text-shadow: 3px 3px #1b03a3;
   border-color: #FFD700;
   margin-top: 340%;
 }

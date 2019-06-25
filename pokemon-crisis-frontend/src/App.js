@@ -46,7 +46,6 @@ class App extends React.Component {
     pokemon.types.forEach(type => {
       types.push(_.capitalize(type.type.name))
    })
-
    types = types.join(", ")
    return types
   }
@@ -59,7 +58,6 @@ class App extends React.Component {
 
   signUp = (p1, p2, e) => {
     e.preventDefault()
-
     fetch('http://localhost:3000/api/v1/trainers', {
       method: 'POST',
       headers: {
@@ -82,11 +80,11 @@ class App extends React.Component {
     this.setState({ player1: {name: p1}, player2: {name: p2}, battleReady: true})
   }
 
-  renderLogo = () => {
-    if(!this.state.player1.name && !this.state.player2.name) {
-      return <img id="pk" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${_.random(1, 807)}.png`} className="App-logo" alt="logo" />
-    }
-  }
+  // renderLogo = () => {
+  //   if(!this.state.player1.name && !this.state.player2.name) {
+  //     return <img id="pk" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${_.random(1, 807)}.png`} className="App-logo" alt="logo" />
+  //   }
+  // }
 
   renderTitle = () => {
     if(!this.state.player1.name && !this.state.player2.name) {
@@ -112,7 +110,6 @@ class App extends React.Component {
       )
     }
   }
-
 
   renderSignIn = () => {
     if(!this.state.player1.name && !this.state.player1.name){
@@ -168,11 +165,9 @@ class App extends React.Component {
   // }
 
   render(){
-    console.log("PICLK POKES", this.state.pokemons);
     return (
       <div className="App">
         <header className="App-header" style={{backgroundImage: `url(${this.randomBackground()})`}}>
-          {this.renderLogo()}
           {this.renderTitle()}
           {this.state.pokemons.length == 0 ? <h1>Loading Pokemons...</h1> : this.renderPickPokemon()}
           {this.renderSignIn()}
@@ -183,6 +178,10 @@ class App extends React.Component {
 
   }
 }
+//The code below renders random spinning pokemon
+// {this.renderLogo()}
+
+//Conditionally renders leaderboard
 // { this.state.leaderBoard? this.renderLeaderBoard() : null }
 
 export default App;
