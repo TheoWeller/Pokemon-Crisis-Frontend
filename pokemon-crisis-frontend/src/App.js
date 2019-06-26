@@ -21,13 +21,13 @@ class App extends React.Component {
   }
 
   fetchLeaderboard = () => {
-    fetch('http://localhost:3000/api/v1/trainers')
+    fetch('https://pokemon-cry51s-backend.herokuapp.com/api/v1/trainers')
     .then(resp => resp.json())
     .then(data => this.setState({leaderBoard: data}))
   }
 
   fetchAllPokemon = () => {
-    fetch('http://localhost:3000/api/v1/pokemons')
+    fetch('https://pokemon-cry51s-backend.herokuapp.com/api/v1/pokemons')
     .then(resp => resp.json())
     .then(data => this.setState({pokemons: data}))
   }
@@ -58,7 +58,7 @@ class App extends React.Component {
 
   signUp = (p1, p2, e) => {
     e.preventDefault()
-    fetch('http://localhost:3000/api/v1/trainers', {
+    fetch('https://pokemon-cry51s-backend.herokuapp.com/api/v1/trainers', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -151,7 +151,7 @@ class App extends React.Component {
   handleStats = (results) => {
     console.log("Winner", results.winner);
     console.log("Loser", results.loser);
-    fetch('http://localhost:3000/api/v1/trainers/:id',{
+    fetch('https://pokemon-cry51s-backend.herokuapp.com/api/v1/trainers/:id',{
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json'
