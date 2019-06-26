@@ -55,7 +55,6 @@ class App extends React.Component {
     this.setState( { selectedPokemen: pokemon } )
   }
 
-
   signUp = (p1, p2, e) => {
     e.preventDefault()
     fetch('https://pokemon-cry51s-backend.herokuapp.com/api/v1/trainers', {
@@ -99,9 +98,18 @@ class App extends React.Component {
     }
   }
 
-  consitionallyRenderPickPokes = () => {
+  conditionallyRenderPickPokes = () => {
     if(this.state.player1.battlePoke && this.state.player2.battlePoke) {
-      return <BattleContainer handleStats={this.handleStats} player1={this.state.player1} player2={this.state.player2} turn={this.state.turn} turnChange={this.turnChange} rematch={this.rematch} determineFirstPoke={this.determineFirstPoke} />
+      return <BattleContainer
+        handleQuitBattle={this.handleQuitBattle}
+        handleStats={this.handleStats}
+        player1={this.state.player1}
+        player2={this.state.player2}
+        turn={this.state.turn}
+        turnChange={this.turnChange}
+        rematch={this.rematch}
+        determineFirstPoke={this.determineFirstPoke}
+      />
     } else {
       return(
         <div>
@@ -148,9 +156,18 @@ class App extends React.Component {
   return ""+b3+""
   }
 
+  handleQuitBattle = () => {
+    this.setState({
+      pokemons: this.state.pokemons,
+      player1: {},
+      player2: {},
+      battleReady: false,
+      selectedPokemen: {},
+      turn: ""
+    })
+  }
+
   handleStats = (results) => {
-    console.log("Winner", results.winner);
-    console.log("Loser", results.loser);
     fetch('https://pokemon-cry51s-backend.herokuapp.com/api/v1/trainers/:id',{
       method: 'PATCH',
       headers: {
@@ -160,18 +177,15 @@ class App extends React.Component {
     })
   }
 
-  // renderLeaderBoard = () => {
-  //   return this.state.leaderBoard.map(player => <div>{player.name}|| Wins: {player.win}</div>)
-  // }
-
   render(){
+    console.log("APP STATE", this.state);
     return (
       <div className="App">
         <header className="App-header" style={{backgroundImage: `url(${this.randomBackground()})`}}>
           {this.renderTitle()}
           {this.state.pokemons.length == 0 ? <h1>Loading Pokemons...</h1> : this.renderPickPokemon()}
           {this.renderSignIn()}
-          {this.consitionallyRenderPickPokes()}
+          {this.conditionallyRenderPickPokes()}
         </header>
       </div>
     );

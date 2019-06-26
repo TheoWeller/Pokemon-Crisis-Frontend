@@ -76,7 +76,7 @@ class PickPokemon extends React.Component {
             </Grid.Row>
           </Grid>
         </div>
-        {this.props.selectedPokemen.name ? <div id="catch"><Button onClick={(e) => this.props.handlePokemonSelect(e)}>CATCH!</Button></div> : null}
+        {this.props.selectedPokemen.name ? <div id="catch"><Button color='red' size='massive' onClick={(e) => this.props.handlePokemonSelect(e)}>CATCH!</Button></div> : null}
       </div>
         )
       }

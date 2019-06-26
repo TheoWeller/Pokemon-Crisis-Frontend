@@ -145,6 +145,7 @@
 
 .select-details {
   font-size: large;
+  font-weight: bolder;
 }
 
 #pick-pokes h1 {
@@ -187,14 +188,24 @@
   font-weight: 300;
   display: inline-block;
   margin: 0 .25em 0 0;
-  /* line-height: 1em; */
   border-radius: .3em;
 }
 
 .rematch {
   color: #FFD700;
   border-color: #FFD700;
-  margin-top: 340%;
+      margin-top: 200%;
+}
+
+#rematch-btn{
+  background: transparent none;
+  font-weight: 300;
+  display: inline-block;
+  margin: 0 .25em 0 0;
+  border-radius: .3em;
+  color: #FFD700;
+  border-color: #FFD700;
+  margin-top: 100%;
 }
 
 .rematch:hover {

@@ -24,16 +24,6 @@ class BattleContainer extends React.Component {
     this.calculateStat("player2")
     this.determineFirst()
   }
-
-  rematch = () => {
-    if (this.state.knockedOut !== "") {
-      let winner = this.state.knockedOut === "player1" ? "player2" : "player1"
-      const results = {winner: this.props[winner].id, loser: this.props[this.state.knockedOut].id}
-      this.props.handleStats(results)
-      return <button className="btn rematch" onClick={this.props.rematch}>Rematch?</button>
-    }
-  }
-
   /*****************************************************************************
     FETCH HELPER METHODS
   *****************************************************************************/
@@ -390,9 +380,23 @@ class BattleContainer extends React.Component {
     } else if (player1Speed < player2Speed) {
       fasterPoke = "player2"
     } else if (player1Speed === player2Speed) {
-      fasterPoke = _.random(["player1", "player2"])
+      fasterPoke = "player1"
     }
     this.props.determineFirstPoke(fasterPoke)
+  }
+
+  rematch = () => {
+    if (this.state.knockedOut !== "") {
+      let winner = this.state.knockedOut === "player1" ? "player2" : "player1"
+      const results = {winner: this.props[winner].id, loser: this.props[this.state.knockedOut].id}
+      this.props.handleStats(results)
+      return (
+        <span>
+        <button className="btn rematch" onClick={this.props.handleQuitBattle}>Quit?</button>
+          <button id="rematch-btn" onClick={this.props.rematch}>Rematch?</button>
+        </span>
+      )
+    }
   }
 
   renderBattleCards = () => {
@@ -419,7 +423,6 @@ class BattleContainer extends React.Component {
     }
   }
   render(){
-    console.log("BATTLE-CONTAINER-STATE", this.state);
     return (
       <div id="battle-container">
           {this.renderBattleCards()}
