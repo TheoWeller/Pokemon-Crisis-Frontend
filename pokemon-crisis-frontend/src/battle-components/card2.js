@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Icon, Image, Button } from 'semantic-ui-react'
+import { Card, Image } from 'semantic-ui-react'
 
 
 class PokemonCard2 extends React.Component{

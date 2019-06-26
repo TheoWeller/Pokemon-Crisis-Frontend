@@ -1,5 +1,4 @@
 import React from 'react';
-import semantic from 'semantic-ui-react';
 import PokemonCard from './PokemonCard'
 
 
